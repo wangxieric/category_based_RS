@@ -1,6 +1,6 @@
 # Category-based method Reproduction
 
-** This work is based on the paper "Location-based and Preference-Aware Recommendation Using Sparse Geo-Social Networking Data" -- Jie Bao et al. **
+This work is based on the paper "Location-based and Preference-Aware Recommendation Using Sparse Geo-Social Networking Data" -- Jie Bao et al. 
 
 ***
 ***
