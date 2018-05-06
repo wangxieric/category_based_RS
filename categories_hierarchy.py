@@ -6,18 +6,22 @@
 from collections import OrderedDict
 import json
 
+
 def _create_hierarchy(hierarchy, category, parent):
     if 'alias' in category:
         hierarchy.add_node(category['alias'])
-    if 'parents' in category:
+    if 'parents' in category and len(category['parents']) > 0:
         hierarchy.add_edge(category['parents'][0], category['alias'])
+
 
 def load():
     h = CategoryHierarchy()
-    with open('categories.json','rb') as f:
+    with open('./data/categories.json','rb') as f:
         categories = json.load(f)
     for category in categories:
         _create_hierarchy(h, category, None)
+    return h
+
 
 class CategoryHierarchy:
     def __init__(self):
@@ -43,10 +47,15 @@ class CategoryHierarchy:
     def get_level_num(self, category):
         if category in self.hierarchy:
             level = 0
-            parent = self.hierarchy[category]['parent']
-            while parent:
-                level += 1
-                parent = self.hierarchy[parent]['parent']
+            # print(category)
+            if 'parent' in self.hierarchy[category]:
+                parent = self.hierarchy[category]['parent']
+                while parent:
+                    level += 1
+                    if 'parent' in self.hierarchy[parent]:
+                        parent = self.hierarchy[parent]['parent']
+                    else:
+                        parent = False
             return level
         else:
             return 0
